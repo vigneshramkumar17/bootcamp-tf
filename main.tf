@@ -37,6 +37,7 @@ resource "aws_instance" "web" {
               apt-get install -y apache2 unzip
               systemctl start apache2
               systemctl enable apache2
+              apt-get install -y fontconfig openjdk-17-jre
               EOF
 
   tags = {
