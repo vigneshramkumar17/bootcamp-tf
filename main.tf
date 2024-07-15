@@ -2,21 +2,11 @@ provider "aws" {
   region = "us-east-1"  # Specify your AWS region
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_subnet" "main" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
-}
-
-# Create a new security group
+# Define a new security group
 resource "aws_security_group" "instance" {
   name        = "my-new-security-group"
   description = "Allow all TCP traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = "vpc-0ca74f9cb6b13699e"  # Replace with your VPC ID
 
   ingress {
     from_port   = 0
@@ -33,12 +23,12 @@ resource "aws_security_group" "instance" {
   }
 }
 
-# Create an EC2 instance using the new security group
+# Create an EC2 instance in the specified subnet with the new security group
 resource "aws_instance" "web" {
   ami                    = "ami-04a81a99f5ec58529"  # Replace with your desired AMI ID
   instance_type          = "t2.medium"
-  subnet_id              = aws_subnet.main.id
-  security_groups        = [aws_security_group.instance.id]  # Use the new security group ID here
+  subnet_id              = "subnet-06681c63ecb534e89"  # Replace with your Subnet ID
+  security_groups        = [aws_security_group.instance.id]
   associate_public_ip_address = true
 
   user_data = <<-EOF
