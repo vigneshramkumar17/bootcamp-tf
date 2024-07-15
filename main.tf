@@ -2,22 +2,7 @@ provider "aws" {
   region = "us-east-1"  # Specify your AWS region
 }
 
-# Fetch the default VPC
-data "aws_vpc" "default" {
-  default = true
-}
-
-# Fetch the subnet IDs in the default VPC
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
-}
-
-# Use the first subnet in the default VPC
-data "aws_subnet" "default" {
-  id = element(data.aws_subnet_ids.default.ids, 0)
-}
-
-# Create a security group that allows all TCP traffic from any IP
+# Create a security group allowing all TCP traffic
 resource "aws_security_group" "allow_all_tcp" {
   name        = "allow_all_tcp"
   description = "Allow all TCP traffic"
@@ -36,29 +21,24 @@ resource "aws_security_group" "allow_all_tcp" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "allow-all-tcp"
-  }
 }
 
-# Create an EC2 instance in the default VPC
+# Launch an EC2 instance with the specified security group
 resource "aws_instance" "web" {
-  ami                    = "ami-04a81a99f5ec58529"  # Replace Ubuntu AMI
+  ami                    = "ami-04a81a99f5ec58529"  # Replace with your desired AMI ID
   instance_type          = "t2.medium"
-  subnet_id              = data.aws_subnet.default.id
   security_groups        = [aws_security_group.allow_all_tcp.name]
   associate_public_ip_address = true
 
   user_data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y apache2 unzip
-              systemctl start apache2
-              systemctl enable apache2
-              EOF
- 
- tags = {
+                #!/bin/bash
+                apt-get update
+                apt-get install -y apache2 unzip
+                systemctl start apache2
+                systemctl enable apache2
+                EOF
+
+  tags = {
     Name = "web-server"
   }
 }
