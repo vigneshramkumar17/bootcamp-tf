@@ -2,6 +2,21 @@ provider "aws" {
   region = "us-east-1"  # Specify your AWS region
 }
 
+# Fetch the default VPC
+data "aws_vpc" "default" {
+  default = true
+}
+
+# Fetch the subnet IDs in the default VPC
+data "aws_subnet_ids" "default" {
+  vpc_id = data.aws_vpc.default.id
+}
+
+# Use the first subnet in the default VPC
+data "aws_subnet" "default" {
+  id = element(data.aws_subnet_ids.default.ids, 0)
+}
+
 # Create a security group that allows all TCP traffic from any IP
 resource "aws_security_group" "allow_all_tcp" {
   name        = "allow_all_tcp"
