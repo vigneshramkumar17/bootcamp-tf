@@ -20,17 +20,24 @@ pipeline {
             }
         }
 
-        stage('Terraform Plan') {
+        // Destroy infrastructure
+        stage('Terraform Destroy') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                sh 'terraform destroy -auto-approve'
             }
         }
 
-        stage('Terraform Apply') {
-            steps {
-                sh 'terraform destroy -input=false tfplan'
+        // stage('Terraform Plan') {
+        //     steps {
+        //         sh 'terraform plan -out=tfplan'
+        //     }
+        // }
 
-            }
-        }
+        // stage('Terraform Apply') {
+        //     steps {
+        //         sh 'terraform apply -input=false tfplan'
+
+        //     }
+        // }
     }
 }
