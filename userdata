@@ -24,4 +24,4 @@ sudo systemctl start apache2
 sudo systemctl enable apache2
 wget https://www.free-css.com/assets/files/free-css-templates/download/page290/brighton.zip -O /tmp/brighton.zip
 unzip /tmp/brighton.zip -d /tmp/brighton
-sudo mv /tmp/brighton/* /var/www/html/
+sudo mv /tmp/brighton/brighton-html/* /var/www/html/
