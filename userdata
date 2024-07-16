@@ -11,7 +11,7 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update
-sudo apt-get install jenkins
+sudo apt-get install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 TERRAFORM_VERSION="1.4.6"
