@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_security_group" "instance" {
   name        = "my-new-security-group"
   description = "Allow all TCP traffic"
-  vpc_id      = "vpc-0ba43cc058cccf7bc"  # Replace with your VPC ID
+  vpc_id      = "vpc-09ff70a4cb3a07c78"  # Replace with your VPC ID
 
   ingress {
     from_port   = 0
@@ -27,7 +27,7 @@ resource "aws_security_group" "instance" {
 resource "aws_instance" "web" {
   ami                    = "ami-04a81a99f5ec58529"  # Replace with your desired AMI ID
   instance_type          = "t2.medium"
-  subnet_id              = "subnet-01185bc16d7bb263b"  # Replace with your Subnet ID
+  subnet_id              = "subnet-003a2dada6ac49fca"  # Replace with your Subnet ID
   security_groups        = [aws_security_group.instance.id]
   associate_public_ip_address = true
 
