@@ -1,0 +1,29 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install -y apache2
+sudo apt-get install -y unzip
+sudo apt update
+sudo apt install fontconfig openjdk-17-jre -y
+java -version
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+TERRAFORM_VERSION="1.4.6"
+wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_$
+{TERRAFORM_VERSION}_linux_amd64.zip
+unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
+rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+sudo apt-get install -y maven
+sudo systemctl start apache2
+sudo systemctl enable apache2
+wget https://www.free-css.com/assets/files/free-css-templates/download/page290/
+brighton.zip -O /tmp/brighton.zip
+unzip /tmp/brighton.zip -d /tmp/brighton
+sudo mv /tmp/brighton/* /var/www/html/
