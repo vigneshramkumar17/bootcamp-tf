@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_security_group" "instance" {
   name        = "my-new-security-group"
   description = "Allow all TCP traffic"
-  vpc_id      = "vpc-09ff70a4cb3a07c78"  # Replace with your VPC ID
+  vpc_id      = "vpc-0a0ca330f158815cc"  # Replace with your VPC ID
 
   ingress {
     from_port   = 0
