@@ -27,7 +27,7 @@ resource "aws_security_group" "instance" {
 resource "aws_instance" "web" {
   ami                    = "ami-04a81a99f5ec58529"  # Replace with your desired AMI ID
   instance_type          = "t2.medium"
-  subnet_id              = "subnet-003a2dada6ac49fca"  # Replace with your Subnet ID
+  subnet_id              = "subnet-07be79d58d9794b9e"  # Replace with your Subnet ID
   security_groups        = [aws_security_group.instance.id]
   associate_public_ip_address = true
 
